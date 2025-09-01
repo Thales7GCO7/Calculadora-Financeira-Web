@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Calculadora Financeira • Web</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="./style.css" rel="stylesheet" />
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!--Atualizar-->
+</head>
+<body>
+  <header class="container">
+    <h1>Calculadora Financeira Web</h1>
+    <p>Juros simples e compostos, Valor Presente, Valor Futuro, Conversão de Taxa, Tabelas PRICE e SAC com gráficos.</p>
+  </header>
+
+  <main class="container grid">
+    <!-- Conversão de taxa -->
+    <section class="card">
+      <h2>Conversão de Taxa Equivalente</h2>
+      <div class="row">
+        <label>Taxa (%): <input type="number" id="taxa_equiv" step="0.0001" /></label>
+        <label>De período:
+          <select id="de_periodo">
+            <option value="mensal">Mensal</option>
+            <option value="bimestral">Bimestral</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Para período:
+          <select id="para_periodo">
+            <option value="mensal">Mensal</option>
+            <option value="bimestral">Bimestral</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+      </div>
+      <div class="row">
+        <button class="btn" onclick="onConverterTaxa()">Converter</button>
+      </div>
+      <div class="result" id="res_taxa"></div>
+    </section>
+
+    <!-- Juros simples -->
+    <section class="card">
+      <h2>Juros Simples</h2>
+      <div class="row">
+        <label>Capital (R$): <input type="number" id="js_capital" step="0.01" /></label>
+        <label>Taxa (%): <input type="number" id="js_taxa" step="0.0001" /></label>
+        <label>Período da taxa:
+          <select id="js_de">
+            <option value="mensal">Mensal</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Capitalização:
+          <select id="js_para">
+            <option value="mensal">Mensal</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Tempo (n): <input type="number" id="js_tempo" /></label>
+      </div>
+      <div class="row">
+        <button class="btn" onclick="onJurosSimples()">Calcular</button>
+      </div>
+      <div class="result" id="res_js"></div>
+    </section>
+
+    <!-- Juros compostos -->
+    <section class="card">
+      <h2>Juros Compostos</h2>
+      <div class="row">
+        <label>Capital (R$): <input type="number" id="jc_capital" step="0.01" /></label>
+        <label>Taxa (%): <input type="number" id="jc_taxa" step="0.0001" /></label>
+        <label>Período da taxa:
+          <select id="jc_de">
+            <option value="mensal">Mensal</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Capitalização:
+          <select id="jc_para">
+            <option value="mensal">Mensal</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Tempo (n): <input type="number" id="jc_tempo" /></label>
+      </div>
+      <div class="row">
+        <button class="btn" onclick="onJurosCompostos()">Calcular</button>
+      </div>
+      <div class="result" id="res_jc"></div>
+    </section>
+
+    <!-- Valor Presente -->
+    <section class="card">
+      <h2>Valor Presente</h2>
+      <div class="row">
+        <label>Valor Futuro (R$): <input type="number" id="vp_vf" step="0.01" /></label>
+        <label>Taxa (%): <input type="number" id="vp_taxa" step="0.0001" /></label>
+        <label>Período da taxa:
+          <select id="vp_de">
+            <option value="mensal">Mensal</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Capitalização:
+          <select id="vp_para">
+            <option value="mensal">Mensal</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Tempo (n): <input type="number" id="vp_tempo" /></label>
+      </div>
+      <div class="row">
+        <button class="btn" onclick="onValorPresente()">Calcular</button>
+      </div>
+      <div class="result" id="res_vp"></div>
+    </section>
+
+    <!-- Valor Futuro -->
+    <section class="card">
+      <h2>Valor Futuro</h2>
+      <div class="row">
+        <label>Valor Presente (R$): <input type="number" id="vf_vp" step="0.01" /></label>
+        <label>Taxa (%): <input type="number" id="vf_taxa" step="0.0001" /></label>
+        <label>Período da taxa:
+          <select id="vf_de">
+            <option value="mensal">Mensal</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Capitalização:
+          <select id="vf_para">
+            <option value="mensal">Mensal</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Tempo (n): <input type="number" id="vf_tempo" /></label>
+      </div>
+      <div class="row">
+        <button class="btn" onclick="onValorFuturo()">Calcular</button>
+      </div>
+      <div class="result" id="res_vf"></div>
+    </section>
+
+    <!-- PRICE e SAC -->
+    <section class="card col-span-2">
+      <h2>Tabelas de Amortização (PRICE e SAC)</h2>
+      <div class="row">
+        <label>Valor Financiado (R$): <input type="number" id="fin_valor" step="0.01" /></label>
+        <label>Taxa (%): <input type="number" id="fin_taxa" step="0.0001" /></label>
+        <label>Período da taxa:
+          <select id="fin_de">
+            <option value="mensal">Mensal</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Capitalização:
+          <select id="fin_para">
+            <option value="mensal">Mensal</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </label>
+        <label>Parcelas (n): <input type="number" id="fin_n" /></label>
+      </div>
+      <div class="row gap">
+        <button class="btn" onclick="onTabela('PRICE')">Gerar PRICE</button>
+        <button class="btn alt" onclick="onTabela('SAC')">Gerar SAC</button>
+        <button class="btn ghost" onclick="baixarCSV()">Exportar CSV</button>
+      </div>
+
+      <div id="grafico"></div>
+      <div id="tabela_wrap"></div>
+    </section>
+  </main>
+
+  <footer class="container foot">
+    <small>Feito por Thales — versão Web, HTML/CSS/JS + Plotly</small>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
