@@ -18,8 +18,8 @@ Tecnologias Utilizadas:
 - JavaScript (ES6+) → Lógica dos cálculos financeiros;
 - Plotly.js / Chart.js → Gráficos interativos.
 
-calculadora-financeira
-│── index.html        # Página principal
-│── style.css         # Estilos visuais
-│── script.js         # Lógica dos cálculos
-│── README.md         # Documentação
+Calculadora-financeira:
+- index.html        # Página principal
+- style.css         # Estilos visuais
+- script.js         # Lógica dos cálculos
+- README.md         # Documentação
